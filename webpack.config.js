@@ -2,6 +2,8 @@
 
 /* eslint no-console: "off" */
 const webpackConfigs = require('./conf/webpack');
+const { ReactLoadablePlugin } = require('./lib/webpack');
+
 const defaultConfig = 'dev';
 
 module.exports = (configName) => {

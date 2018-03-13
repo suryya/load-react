@@ -17,12 +17,18 @@
     "serve:dist": "webpack-dev-server --open --env dist -p --progress",
     "start": "npm run serve:dev",
     "test": "cross-env NODE_ENV=test karma start",
-    "test:watch": "cross-env NODE_ENV=test karma start --autoWatch=true --singleRun=false --reporters=mocha,coverage"
+    "test:watch": "cross-env NODE_ENV=test karma start --autoWatch=true --singleRun=false --reporters=mocha,coverage",
+    "build": "babel src -d lib && webpack  --progress --bail --env dist -p",
+    "boil": "npm run build && npm run serve:dev"
   },
   "repository": "",
   "keywords": [],
   "author": "Your name here",
   "devDependencies": {
+    "babel-plugin-dynamic-import-node": "^1.1.0",
+    "babel-plugin-module-resolver": "^2.7.1",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
@@ -86,6 +92,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-dropzone": "^4.2.7",
+    "react-loadable": "^5.3.1",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-sortable-hoc": "^0.6.8",

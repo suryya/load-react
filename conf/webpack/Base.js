@@ -2,6 +2,8 @@
 const fs = require('fs');
 const path = require('path');
 const npmBase = path.join(__dirname, '../../node_modules');
+const { ReactLoadablePlugin } = require('react-loadable/webpack');
+
 class WebpackBaseConfig {
   constructor() {
     this._config = {};
@@ -48,9 +50,32 @@ class WebpackBaseConfig {
           {
             enforce: 'pre',
             test: /\.js?$/,
-            include: this.srcPathAbsolute,
-            loader: 'babel-loader',
-            query: { presets: ['es2015'] }
+            exclude: /node_modules/,
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: [
+                  ['es2015'],
+                  'react',
+                ],
+                plugins: [
+                  'syntax-dynamic-import',
+                  'transform-class-properties',
+                  'transform-object-assign',
+                  path.resolve('./babel'),
+                ],
+              }
+            }
+            // include: this.srcPathAbsolute,
+            // loader: 'babel-loader',
+            // query: { presets: [['es2015'], 'react']},
+            // plugins: [
+            //   'syntax-dynamic-import',
+            //   'transform-class-properties',
+            //   'transform-object-assign',
+            //   path.resolve('./babel'),
+            // ]
+
           },
           {
             test: /^.((?!cssmodule).)*\.css$/,
@@ -154,7 +179,11 @@ class WebpackBaseConfig {
         filename: 'app.js',
         publicPath: './assets/'
       },
-      plugins: [],
+      plugins: [
+        new ReactLoadablePlugin({
+          filename:  path.resolve(__dirname, '../../src', '../../dist', 'react-loadable.json')
+        })
+      ],
       resolve: {
         alias: {
           actions: `${ this.srcPathAbsolute }/actions/`,
