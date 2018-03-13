@@ -39,6 +39,7 @@ class WebpackDistConfig extends WebpackBaseConfig {
       output: {
         path: path.resolve('./dist/assets'),
         filename: "app.js",
+        //filename: "app.[hash].js",
         publicPath: './assets/'
       },
 
@@ -88,7 +89,29 @@ class WebpackDistConfig extends WebpackBaseConfig {
         // }),
 
         new webpack.optimize.AggressiveMergingPlugin(),
-        new webpack.NoEmitOnErrorsPlugin()
+        new webpack.NoEmitOnErrorsPlugin(),
+        function() {
+          this.plugin("done", function(statsData) {
+            let stats = statsData.toJson();
+            //console.log(JSON.stringify(stats));
+            if (!stats.errors.length) {
+              //console.log(JSON.stringify(stats.assetsByChunkName));
+              let htmlFileName = "index.html";
+              let html = FileSystem.readFileSync(path.join('./dist', htmlFileName), "utf8");
+              //console.log(html);
+              let htmlOutput = html.replace("app.js",
+                stats.assetsByChunkName.app[0]);
+
+              htmlOutput = htmlOutput.replace("vendor.js",
+                stats.assetsByChunkName.vendor[0]);
+
+              FileSystem.writeFileSync(
+                path.join('./dist', htmlFileName),
+                htmlOutput);
+            }
+          });
+        }
+
       ]
     };
 
