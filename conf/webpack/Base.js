@@ -61,8 +61,7 @@ class WebpackBaseConfig {
                 plugins: [
                   'syntax-dynamic-import',
                   'transform-class-properties',
-                  'transform-object-assign',
-                  path.resolve('./babel'),
+                  'transform-object-assign'
                 ],
               }
             }
@@ -180,9 +179,9 @@ class WebpackBaseConfig {
         publicPath: './assets/'
       },
       plugins: [
-        new ReactLoadablePlugin({
-          filename:  path.resolve(__dirname, '../../src', '../../dist', 'react-loadable.json')
-        })
+        // new ReactLoadablePlugin({
+        //   filename:  path.resolve(__dirname, '../../src', '../../dist', 'react-loadable.json')
+        // })
       ],
       resolve: {
         alias: {

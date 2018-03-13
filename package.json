@@ -18,7 +18,8 @@
     "start": "npm run serve:dev",
     "test": "cross-env NODE_ENV=test karma start",
     "test:watch": "cross-env NODE_ENV=test karma start --autoWatch=true --singleRun=false --reporters=mocha,coverage",
-    "build": "babel src -d lib && webpack  --progress --bail --env dist -p",
+    "buildcopy": "babel src -d compiled && webpack  --progress --bail --env dist -p",
+    "build": "babel src && webpack --progress --bail --env dist -p",
     "boil": "npm run build && npm run serve:dev"
   },
   "repository": "",
