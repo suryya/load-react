@@ -38,7 +38,8 @@ class WebpackDistConfig extends WebpackBaseConfig {
 
       output: {
         path: path.resolve('./dist/assets'),
-        filename: "app.js"
+        filename: "app.js",
+        publicPath: './assets/'
       },
 
       // entry: {
@@ -76,7 +77,7 @@ class WebpackDistConfig extends WebpackBaseConfig {
         //   //  goes into the vendor chunk)
         // }),
 
-        
+
 
         // new webpack.optimize.CommonsChunkPlugin({
         //   name: 'vendor',
